@@ -52,10 +52,12 @@ def reg():
     if not test5==test5_2: print ("Revise las contraseñas"), sys.exit(0)
     test6=input("Ingrese su numero de telefono: ")
     comp('Tlf',test6)
-    info_test=(test1,test2,test3,test4,test5,test6)
+    cont(8,test6)
+    test0=test3[0]+test3[2]+test3[4]+"-"+test6[2]+test6[3]+test6[-3]+test6[-2]+test6[-1]
+    info_test=(test0.upper(),test1,test2,test3,test4,test5,test6)
     return info_test
 cursor1=mydb.cursor()
-sql="INSERT INTO `usuario`(`Nombre`, `Apellido`, `User_name`, `Email`, `Pass`, `Tlf`) VALUES (%s,%s,%s,%s,%s,%s)"
+sql="INSERT INTO `usuario`(`UserID`,`Nombre`, `Apellido`, `User_name`, `Email`, `Pass`, `Tlf`) VALUES (%s,%s,%s,%s,%s,%s,%s)"
 cursor1.execute(sql,reg())
 mydb.commit()
 mydb.close()

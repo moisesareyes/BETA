@@ -1,4 +1,15 @@
 import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="",
+  database="test"
+)
+ap="Eddie"
+ap2="0424-7060"
+ap3=ap[0]+ap[2]+ap[4]+"-"+ap2[2]+ap2[3]+ap2[-1]+ap2[-2]+ap2[-3]
+print(ap3)
 control=list()
 ctr=("WOW ES EL 10")
 nums = [caracter.isdigit() for caracter in ctr]
