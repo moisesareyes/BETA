@@ -14,10 +14,11 @@ tipo="CRYPTO"
 crp=47
 crs=mydb.cursor()
 def cambio_cry(usuario, tipo,tasa, dispo):
+    usd="USD"
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{usuario}' AND  `tipo`='{tipo}' "
     crs.execute(sql)
     inf=crs.fetchone()
-    sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{usuario}' AND  `tipo`='USD' "
+    sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{usuario}' AND  `tipo`='{usd}' "
     crs.execute(sql)
     det=crs.fetchone()
     print(f"{inf} vs {det}")
@@ -31,9 +32,27 @@ def cambio_cry(usuario, tipo,tasa, dispo):
     if cambio>5 and cambio<cant_max:
         new= cambio/tasa
         print(new)
-#cambio_cry(usuario,tipo,42500.38,1)
+        newcry=new+float(inf[3])
+        newus=cant_max-cambio
+        print(f"{newcry}+{newus}")
+        id1=inf[4]
+        id2=det[4]
+        salida=(tipo,usd,id1,id2,newcry,newus,usuario)
+        return list(salida)
+#####
+#####to_upd=cambio_cry(usuario,tipo,42500.38,1)
+######print(to_upd)
 #################################### Bolivar a $$$$
 def cambio_dlr(usuario,tasa,dispo):
-    print(f"{usuario} + {tasa} + {dispo}")
-cambio_dlr(usuario,bcv,10000)
+   print(f"{usuario} + {tasa} + {dispo}")
+#### UPDATE EN BASE DE DATOOSOOOOO
+def reg_bd(atc,old,id1,id2,cant_act,cant_old,usuario):
+  sql=f"UPDATE `billetera` SET `cantidad`={cant_act},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{usuario}' AND `tipo`='{atc}' AND `billeteraID`='{id1}' "
+  sql2=f"UPDATE `billetera` SET `cantidad`={cant_old},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{usuario}' AND `tipo`='{old}' AND `billeteraID`='{id2}' "
+  crs.execute(sql)
+  crs.execute(sql2)
+  mydb.commit()
+
+#######reg_bd(to_upd[0],to_upd[1],to_upd[2],to_upd[3],to_upd[4],to_upd[5],to_upd[6])
+#cambio_dlr(usuario,bcv,10000)
 mydb.close()
