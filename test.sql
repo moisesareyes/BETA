@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2024 a las 18:23:22
+-- Tiempo de generación: 06-02-2024 a las 17:54:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -35,6 +35,15 @@ CREATE TABLE `billetera` (
   `billeteraID` text NOT NULL,
   `act` text NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `billetera`
+--
+
+INSERT INTO `billetera` (`id`, `poseedor`, `tipo`, `cantidad`, `billeteraID`, `act`) VALUES
+(1, 'ZRO-42111', 'Bs.D', '0555', 'ZRO-42111-BSD', '2024-02-01 14:11:11'),
+(2, 'ZRO-42111', 'USD', '50000', 'ZRO-42111-USD', '2024-02-01 14:17:29'),
+(3, 'ZRO-42111', 'CRYPTO', '46.98116642490941', 'ZRO-42111-CRYPTO', '2024-02-01 14:18:05');
 
 -- --------------------------------------------------------
 
@@ -128,7 +137,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `billetera`
 --
 ALTER TABLE `billetera`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `test`
