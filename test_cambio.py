@@ -1,5 +1,6 @@
 import mysql.connector
 import sys
+import test_edit as ed 
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -39,20 +40,14 @@ def cambio_cry(usuario, tipo,tasa, dispo):
         id2=det[4]
         salida=(tipo,usd,id1,id2,newcry,newus,usuario)
         return list(salida)
+    else: 
+        print("JAJAAJAAJ, No tienes suficiente saldo, o peor, no vas a comprar lo suficiente XDDD")
+        sys.exit(0)
 #####
-#####to_upd=cambio_cry(usuario,tipo,42500.38,1)
+to_upd=cambio_cry(usuario,tipo,42500.38,1)
 ######print(to_upd)
-#################################### Bolivar a $$$$
-def cambio_dlr(usuario,tasa,dispo):
-   print(f"{usuario} + {tasa} + {dispo}")
-#### UPDATE EN BASE DE DATOOSOOOOO
-def reg_bd(atc,old,id1,id2,cant_act,cant_old,usuario):
-  sql=f"UPDATE `billetera` SET `cantidad`={cant_act},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{usuario}' AND `tipo`='{atc}' AND `billeteraID`='{id1}' "
-  sql2=f"UPDATE `billetera` SET `cantidad`={cant_old},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{usuario}' AND `tipo`='{old}' AND `billeteraID`='{id2}' "
-  crs.execute(sql)
-  crs.execute(sql2)
-  mydb.commit()
+#################################### Bolivar a $$$$ ---- > Cambiado a otro documentooo
 
-#######reg_bd(to_upd[0],to_upd[1],to_upd[2],to_upd[3],to_upd[4],to_upd[5],to_upd[6])
-#cambio_dlr(usuario,bcv,10000)
+ed.reg_bd(to_upd[0],to_upd[1],to_upd[2],to_upd[3],to_upd[4],to_upd[5],to_upd[6])
+
 mydb.close()
