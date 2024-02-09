@@ -1,16 +1,15 @@
 import mysql.connector
 import sys
 import test_edit as ed
-#import bcv
+import bcv
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="",
   database="test"
 )
-#pr=bcv.tasa
-#print(pr)
-tasa=int(36.23)
+tasa=bcv.tasaf()
+
 usuario="ZRO-42111"
 crs=mydb.cursor()
 
