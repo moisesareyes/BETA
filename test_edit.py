@@ -1,4 +1,4 @@
-def reg_bd(atc,old,id1,id2,cant_act,cant_old,usuario):
+def reg_bd(atc,id1,cant_act,old,id2,cant_old,usuario):
   import mysql.connector
   import sys
   import test_edit as ed 
