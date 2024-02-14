@@ -19,7 +19,7 @@ def comp(parametro):
             sys.exit(0)
     else:
         print(f"Disponible: {parametro}")
-usuario="ZRO-42111"
+usuario="EZr-24018"
 def reg_b():
     cursor1=mydb.cursor()
     sql=f"SELECT `UserID` FROM `usuario` WHERE `UserID`='{usuario}'"
