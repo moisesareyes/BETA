@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2024 a las 17:54:41
+-- Tiempo de generación: 14-02-2024 a las 15:15:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -31,7 +31,7 @@ CREATE TABLE `billetera` (
   `id` int(11) NOT NULL,
   `poseedor` text NOT NULL,
   `tipo` text NOT NULL,
-  `cantidad` text NOT NULL,
+  `cantidad` float NOT NULL,
   `billeteraID` text NOT NULL,
   `act` text NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -41,9 +41,58 @@ CREATE TABLE `billetera` (
 --
 
 INSERT INTO `billetera` (`id`, `poseedor`, `tipo`, `cantidad`, `billeteraID`, `act`) VALUES
-(1, 'ZRO-42111', 'Bs.D', '0555', 'ZRO-42111-BSD', '2024-02-01 14:11:11'),
-(2, 'ZRO-42111', 'USD', '50000', 'ZRO-42111-USD', '2024-02-01 14:17:29'),
-(3, 'ZRO-42111', 'CRYPTO', '46.98116642490941', 'ZRO-42111-CRYPTO', '2024-02-01 14:18:05');
+(1, 'ZRO-42111', 'Bs.D', 95.65, 'ZRO-42111-BSD', '2024-02-09 17:22:25'),
+(2, 'ZRO-42111', 'USD', 55, 'ZRO-42111-USD', '2024-02-09 17:22:25'),
+(3, 'ZRO-42111', 'CRYPTO', 1.11199, 'ZRO-42111-CRYPTO', '2024-02-07 14:10:11'),
+(4, 'EZr-24018', 'Bs.D', 0, 'EZr-24018-BSD', '2024-02-14 13:03:25'),
+(5, 'EZr-24018', 'USD', 0, 'EZr-24018-USD', '2024-02-14 13:04:01'),
+(6, 'EZr-24018', 'CRYPTO', 0, 'EZr-24018-CRYPTO', '2024-02-14 13:04:07');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial`
+--
+
+CREATE TABLE `historial` (
+  `ID` int(11) NOT NULL,
+  `servidor` text NOT NULL,
+  `recep` text NOT NULL,
+  `tipo` text NOT NULL,
+  `moneda` text NOT NULL,
+  `status` text NOT NULL,
+  `cantidad` text NOT NULL,
+  `billetera1` text NOT NULL,
+  `billetera2` text NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recarga`
+--
+
+CREATE TABLE `recarga` (
+  `ID` int(11) NOT NULL,
+  `usuario` text NOT NULL,
+  `tipo` text NOT NULL,
+  `doc` text NOT NULL,
+  `banco` text NOT NULL,
+  `telefono` text NOT NULL,
+  `cantidad` text NOT NULL,
+  `operacion` text NOT NULL,
+  `status` text NOT NULL,
+  `fecha_tra` date NOT NULL,
+  `reg` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `recarga`
+--
+
+INSERT INTO `recarga` (`ID`, `usuario`, `tipo`, `doc`, `banco`, `telefono`, `cantidad`, `operacion`, `status`, `fecha_tra`, `reg`) VALUES
+(1, 'EZr-24018', 'Bs.D', '300', '0102', '300', '2000', '20000000', 'Pendiente', '2024-02-14', '2024-02-14 14:14:19');
 
 -- --------------------------------------------------------
 
@@ -118,6 +167,18 @@ ALTER TABLE `billetera`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `historial`
+--
+ALTER TABLE `historial`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `recarga`
+--
+ALTER TABLE `recarga`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indices de la tabla `test`
 --
 ALTER TABLE `test`
@@ -137,7 +198,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `billetera`
 --
 ALTER TABLE `billetera`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `historial`
+--
+ALTER TABLE `historial`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `recarga`
+--
+ALTER TABLE `recarga`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `test`
