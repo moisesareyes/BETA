@@ -1,7 +1,7 @@
 import mysql.connector
 import sys
-import test_edit as ed
-import bcv
+import Funciones.test_edit as ed
+import Funciones.bcv as bcv
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",

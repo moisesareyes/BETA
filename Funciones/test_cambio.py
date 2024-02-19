@@ -1,6 +1,6 @@
 import mysql.connector
 import sys
-import test_edit as ed 
+import Funciones.test_edit as ed 
 
 mydb = mysql.connector.connect(
   host="localhost",

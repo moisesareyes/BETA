@@ -1,7 +1,7 @@
 def reg_bd(atc,id1,cant_act,old,id2,cant_old,usuario):
   import mysql.connector
   import sys
-  import test_edit as ed 
+  import Funciones.test_edit as ed 
   mydb=mysql.connector.connect(
     host='localhost',
     user='root',
