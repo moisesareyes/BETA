@@ -1,38 +1,56 @@
-import math
-
 import flet as ft
-import flet.canvas as cv
 
 def main(page: ft.Page):
-    cp = cv.Canvas(
-        [
-            cv.Path(
+    page.title = "Routes Example"
+    btn_sesion=ft.CupertinoButton(content=ft.Text("INICIAR SESION",color="BLACK",font_family="Berlin Sans FB"),bgcolor="#ffe3e8",width=300)
+    btn_reg=ft.CupertinoButton(content=ft.Text("REGISTRO",color="BLACK",font_family="Berlin Sans FB"),bgcolor="#ffe3e8",width=300)
+    def route_change(route):
+        page.views.clear()
+        page.views.append(
+            ft.View(
+                "/",
                 [
-                    cv.Path.MoveTo(25, 25),
-                    cv.Path.LineTo(105, 25),
-                    cv.Path.LineTo(25, 105),
+                    ft.AppBar(title=ft.Text("Flet app"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.ElevatedButton("Visit Store", on_click=lambda _: page.go("/store")),
                 ],
-                paint=ft.Paint(
-                    style=ft.PaintingStyle.FILL,
-                ),
-            ),
-            cv.Path(
-                [
-                    cv.Path.MoveTo(125, 125),
-                    cv.Path.LineTo(125, 45),
-                    cv.Path.LineTo(45, 125),
-                    cv.Path.Close(),
-                ],
-                paint=ft.Paint(
-                    stroke_width=2,
-                    style=ft.PaintingStyle.STROKE,
-                ),
-            ),
-        ],
-        width=float("inf"),
-        expand=True,
-    )
+            )
+        )
+        if page.route == "/store":
+            page.views.append(
+                ft.View(
+                    "/store",
+                    [
+                        ft.AppBar(title=ft.Text("Store"), bgcolor=ft.colors.SURFACE_VARIANT),
+                        ft.ElevatedButton("Go Home", on_click=lambda _: page.go("/Prince")),
+                    ],
+                )
+            )
+  
+        page.update()
+        if page.route=="/Prince":
+            page.views.append(
+                ft.View(
+                    "/Prince",
+                    [
+                        ft.AppBar(title=ft.Text("MARICO"), bgcolor=ft.colors.SURFACE_VARIANT),
+                        ft.Column(
+                            [
+                                ft.Container(height=200,bgcolor="WHITE"),
+                                btn_reg,
+                                btn_sesion
+                            ]
+                        ),
+                    ]
+                )
+            )
+    def view_pop(view):
+        page.views.pop()
+        top_view = page.views[-1]
+        page.go(top_view.route)
 
-    page.add(cp)
+    page.on_route_change = route_change
+    page.on_view_pop = view_pop
+    page.go(page.route)
 
-ft.app(main)
+
+ft.app(target=main)
