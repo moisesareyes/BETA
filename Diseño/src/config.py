@@ -9,6 +9,47 @@ mydb=mysql.connector.connect(
 user="ZRO-42111"
 def config (page: ft.Page):
     page.bgcolor="#c4394d"
+    usr_c=ft.Container(
+        border_radius=0,
+        border=ft.border.all(3,"BLACK"),
+        width=300,
+        height=100,
+        content=(
+            ft.Column(
+                [
+                    ft.Column(
+                        [
+                            ft.Container(height=10)
+                        ]
+                    ),
+                    ft.Row(
+                        [
+                            ft.Text("USUARIO",color="WHITE",size=32,font_family="Berlin Sans FB")
+                        ]
+                    )
+                ]
+            )
+        )
+    )
+    new=ft.Container(
+        content=(
+            ft.Column(
+                [
+                    ft.Row(
+                        [
+                            ft.Text("CONFIGURACIONES",color="WHITE",size=32,font_family="Berlin Sans FB")
+                        ]
+                    ),
+                    ft.Row(
+                        [
+                            usr_c
+                        ]
+                    )
+                ]
+            )
+        )
+    )
+    page.add(new)
     mybar = ft.BottomAppBar(
         bgcolor="#c4394d",
         shape=ft.NotchShape.CIRCULAR,

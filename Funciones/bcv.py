@@ -12,3 +12,4 @@ def tasaf():
     tasa=f"{recorte[1]}{recorte[2]}.{recorte[4]}{recorte[5]}"
     tasa=float(tasa)
     return tasa
+print(tasaf())
