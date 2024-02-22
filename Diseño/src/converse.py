@@ -24,7 +24,7 @@ def converse (page: ft.Page):
                 old_cono.value=f"{old_max}"
                 if new_cono.value:
                     temp=int(new_cono.value)*bcv
-                    show.value=f"Cambio: {temp} Bs. D"
+                    show.value=f"Cambio: {temp} Bs.D"
                 else: show.value=f"Cambio: "
             page.update()
             if method.value=="Bs.D to USD":
