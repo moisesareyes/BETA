@@ -7,7 +7,7 @@ mydb=mysql.connector.connect(
     database="test"
 )
 bcv=36.29
-user="ZRO-42111"
+user="Eai-47325"
 def converse (page: ft.Page):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
@@ -54,28 +54,42 @@ def converse (page: ft.Page):
                     ver.append(False)
                 else:ver.append(True)
             return ver
-        def converse(method,cambio):
+        def converse(method,cambio,maxi):
             if method.value=="USD to Bs.D":
                 new_old=inf[3]-int(cambio.value)
-                new=inf_bs[3]+int(cambio.value)*bcv
+                temp=int(cambio.value)*bcv
+                new=float(inf_bs[3])+temp
                 sql=f"UPDATE `billetera` SET `cantidad`={new_old},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{user}' AND `tipo`='USD'"
                 sql2=f"UPDATE `billetera` SET `cantidad`={new},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
                 crs.execute(sql)
                 crs.execute(sql2)
                 mydb.commit()
+                sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
+                crs.execute(sql)
+                newinf=crs.fetchone()
+                maxi.value=newinf[3]
+                page.update()
             if method.value=="Bs.D to USD":
-                new_old=inf_bs[3]-int(cambio.value)/bcv
+                temp=int(cambio.value)*bcv
+                new_old=float(inf_bs[3])-temp
                 new=inf[3]+int(cambio.value)
-                sql=f"UPDATE `billetera` SET `cantidad`={new_old},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{user}' AND `tipo`='USD'"
-                sql2=f"UPDATE `billetera` SET `cantidad`={new},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
+                sql=f"UPDATE `billetera` SET `cantidad`={new},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{user}' AND `tipo`='USD'"
+                sql2=f"UPDATE `billetera` SET `cantidad`={new_old},`act`=CURRENT_TIMESTAMP WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
                 crs.execute(sql)
                 crs.execute(sql2)
                 mydb.commit()
+                sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
+                crs.execute(sql)
+                newinf=crs.fetchone()
+                maxi.value=newinf[3]
+                page.update()
         ver=comp(dd_method,monto,maxi)
         verificacion=all(ver)
         if verificacion==True:
-            converse(dd_method,monto)
+            converse(dd_method,monto,maxi)
             monto.value=""
+            monto.disabled=True
+            dd_method.disabled=True
             titl.value="Cambio Exitoso"
             titl.color="#60d147"
             page.update()

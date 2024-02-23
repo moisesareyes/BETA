@@ -129,14 +129,33 @@ def reg_user(page: ft.Page):
                     crs=mydb.cursor()
                     crs.execute(sql,inps)
                     mydb.commit()
+                    newB=f"{inpname}-BSD"
+                    sql="INSERT INTO `billetera`(`poseedor`, `tipo`, `cantidad`, `billeteraID`) VALUES (%s,%s,%s,%s)"
+                    entrada=(inpname,'Bs.D',0,newB)
+                    crs.execute(sql,entrada)
+                    mydb.commit()
+                    newD=f"{inpname}-USD"
+                    sql="INSERT INTO `billetera`(`poseedor`, `tipo`, `cantidad`, `billeteraID`) VALUES (%s,%s,%s,%s)"
+                    entrada=(inpname,'USD',0,newD)
+                    crs.execute(sql,entrada)
+                    mydb.commit()
                     mydb.close()
+                    page.bgcolor="#3aeb34"
+                    titulo.value="REGISTRO COMPLETO"
+                    inpusr.disabled=True
+                    inpusr.value=""
+                    inpmail.disabled=True
+                    inpmail.value=""
+                    inptlf.disabled=True
+                    inptlf.value=""
+                    page.update()
                 else: 
                     print("Error")
                     titulo.text="ERRRORR"
         verificacion(inp_usr,inp_nombre,inp_apellido,inp_email,inp_tlf,inp_pass,inp_passrd,titulo)
     cortado=ft.Container(height=80,bgcolor="WHITE")
     titulo=ft.Text(value="REGISTRO DE USUARIO",color="WHITE",font_family="Berlin Sans FB",size=32)
-    inp_usr = ft.TextField(hint_text="Usuario",label="Usuario",border_color="#A51C30",bgcolor="#fff2f4",width=300)
+    inp_usr = ft.TextField(hint_text="Usuario",label="Usuario",border_color="#A51C30",bgcolor="#fff2f4",width=300,input_filter=ft.InputFilter(allow=False, regex_string="[ ]" , replacement_string=""))
     inp_nombre=ft.TextField(hint_text="Nombre",label="Nombre",border_color="#A51C30",bgcolor="#fff2f4",width=150)
     inp_apellido=ft.TextField(hint_text="Apellido",label="Apellido",border_color="#A51C30",bgcolor="#fff2f4",width=150)
     inp_email=ft.TextField(hint_text="Email",label="Email",border_color="#A51C30",bgcolor="#fff2f4",width=150)

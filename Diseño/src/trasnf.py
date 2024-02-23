@@ -6,7 +6,7 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-user="ZRO-42111"
+user="Eai-47325"
 def transf (page: ft.Page):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
@@ -100,11 +100,14 @@ def transf (page: ft.Page):
                         sql2=f"UPDATE `billetera` SET `cantidad`={new_to_usr},`act`=CURRENT_TIMESTAMP WHERE `billeteraID`='{inf_usr[4]}' "
                         crs.execute(sql)
                         crs.execute(sql2)
-                        mydb.commit()
-                        monto.value=""
-                        contacto.value=""
+                        monto.disabled=True
+                        contacto.disabled=True
+                        type.disabled=True
+                        pref.disabled=True
                         titl.value="TRANSACCION COMPLETA"
                         titl.color="#60d147"
+                        page.update()
+                        mydb.commit()
             else: print("ERROR")
         comp(dd_pref,dd_type,contacto,monto,maxi,error,titl)
     img=ft.Image(
