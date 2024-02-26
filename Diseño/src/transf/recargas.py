@@ -59,28 +59,33 @@ def recg (page: ft.Page):
                     ver.append(False)
                 else:
                     ver.append(True)
-            else:telef="Predeterminado"
+            else:ver.append(False)
             verificacion=all(ver)
             print(verificacion)
             if verificacion==True:
                 if tlf.disabled==False:
-                    new=(usuario,type.value,doc.value,method.value,tlf.value,cant.value,ref.value,"Pendiente",fecha.value)
+                    
+                    new_var=(usuario,type.value,doc.value,method.value,tlf.value,cant.value,ref.value,"Pendiente",fecha.value)
                     sql="INSERT INTO `recarga`(`usuario`, `tipo`, `doc`, `formato`, `telefono`, `cantidad`,  `operacion`, `status`, `fecha_tra`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                    crs.execute(sql,new)
+                    crs.execute(sql,new_var)
                     mydb.commit()
+                    tit.value="RECARGA REGISTRADA"
+                    tit.color="#60d147"
+                    page.update()
                 else:
-                    new=(usuario,type.value,doc.value,method.value,cant.value,ref.value,"Pendiente",fecha.value)
+                    new_var=(usuario,type.value,doc.value,method.value,cant.value,ref.value,"Pendiente",fecha.value)
                     sql="INSERT INTO `recarga`(`usuario`, `tipo`, `doc`, `formato`, `cantidad`,`operacion`, `status`, `fecha_tra`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
-                    crs.execute(sql,new)
+                    crs.execute(sql,new_var)
                     mydb.commit()
+                    tit.value="RECARGA REGISTRADA"
+                    tit.color="#60d147"
+                    page.update()
             type.value=""
             doc.value=""
             method.value=""
             cant.value=""
             ref.value=""
             fecha.value=""
-            tit.value="RECARGA REGISTRADA"
-            tit.color="#60d147"
             page.update()
         comp(date_picker,dd_type,date_button,dd_method,doc,ref,user,tlf,cant,tit)
     def date_picker_dismissed(e):
@@ -127,21 +132,10 @@ def recg (page: ft.Page):
         icon=ft.icons.CALENDAR_MONTH,
         on_click=lambda _: date_picker.pick_date(),
     )
-
-    img=ft.Image(
-        width=256,
-        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b2a0d1ca-699a-4c14-8a0f-f7c09f0804fb/dgx3mr5-c424fb06-c476-4e14-b90c-3f9dfecf3a78.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2IyYTBkMWNhLTY5OWEtNGMxNC04YTBmLWY3YzA5ZjA4MDRmYlwvZGd4M21yNS1jNDI0ZmIwNi1jNDc2LTRlMTQtYjkwYy0zZjlkZmVjZjNhNzgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.0R8sHJFh-v6fG5187eWWUt0QGkE4lPTdtBWwuhcuPD4",
-        fit=ft.ImageFit.CONTAIN
-    )
-    page.appbar = ft.AppBar(
-        leading_width=40,
-        title=img,
-        center_title=True,
-        bgcolor="#c4394d",
-    )
+    page.scroll='always'
     page.bgcolor="#ffe3e8"
     rec=ft.CupertinoButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_reg)
-    doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
+    doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,border_color="BLACK")
     ref=ft.TextField(label="Referencia",hint_text="Referencia",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     cant=ft.TextField(label="Cantidad",hint_text="Cantidad",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     tlf=ft.TextField(label="Telefono",hint_text="Telefono",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)
@@ -216,20 +210,4 @@ def recg (page: ft.Page):
             )
         )
     )
-    page.add(new)
-    mybar = ft.BottomAppBar(
-        bgcolor="#c4394d",
-        shape=ft.NotchShape.CIRCULAR,
-        content=ft.Row(
-            controls=[
-                ft.IconButton(icon=ft.icons.REFRESH, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.HOME, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED, icon_color=ft.colors.WHITE,bgcolor="#ff6178"),
-                ft.IconButton(icon=ft.icons.TRENDING_UP_OUTLINED,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.MENU_OPEN_SHARP,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.EXIT_TO_APP, icon_color=ft.colors.WHITE)
-            ],alignment=ft.MainAxisAlignment.CENTER
-        ),
-    )
-    page.add(mybar)
-ft.app(recg)
+    return new

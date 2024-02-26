@@ -9,24 +9,76 @@ mydb=mysql.connector.connect(
 user="ZRO-42111"
 def retiro_bs (page: ft.Page):
     crs=mydb.cursor()
-    img=ft.Image(
-        width=256,
-        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b2a0d1ca-699a-4c14-8a0f-f7c09f0804fb/dgx3mr5-c424fb06-c476-4e14-b90c-3f9dfecf3a78.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2IyYTBkMWNhLTY5OWEtNGMxNC04YTBmLWY3YzA5ZjA4MDRmYlwvZGd4M21yNS1jNDI0ZmIwNi1jNDc2LTRlMTQtYjkwYy0zZjlkZmVjZjNhNzgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.0R8sHJFh-v6fG5187eWWUt0QGkE4lPTdtBWwuhcuPD4",
-        fit=ft.ImageFit.CONTAIN
-    )
-    page.appbar = ft.AppBar(
-        leading_width=40,
-        title=img,
-        center_title=True,
-        bgcolor="#c4394d",
-    )
+    sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
+    crs.execute(sql)
+    inf_bs=crs.fetchone()
+    def on_change_b(e):
+        def compr(banco,tlf):
+            if not banco.value:
+                tlf.disabled=True
+                page.update()
+            else:
+                tlf.disabled=False
+                page.update()
+        compr(dd_banco,tlf)
+    def on_click_b(e):
+        def retirobd(usuario,banco,doc,cantidad,tlf):
+            grd=(usuario,banco.value,doc.value,cantidad.value,tlf.value,'pendiente')
+            sql="INSERT INTO `retiros`( `usuario`, `banco`, `documento`, `cantidad`, `tlf`, `status`) VALUES (%s,%s,%s,%s,%s,%s)"
+            crs.execute(sql,grd)
+            mydb.commit()
+        def comp(banco,doc,cantidad,tlf,maximo):
+            ver=list()
+            if not banco.value:
+                banco.hint_text="OBLIGATORIO"
+                banco.border_color="#ff0000"
+                page.update()
+                ver.append(False)
+            else: ver.append(True)
+            if not doc.value:
+                doc.hint_text="OBLIGATORIO"
+                doc.border_color="#ff0000"
+                page.update()
+                ver.append(False)
+            else: ver.append(True)
+            if not cantidad.value:
+                cantidad.hint_text="OBLIGATORIO"
+                cantidad.border_color="#ff0000"
+                page.update()
+                ver.append(False)
+            else: 
+                ver.append(True)
+                if float(cantidad.value)>float(maximo.value):
+                    cantidad.hint_text="OBLIGATORIO"
+                    cantidad.border_color="#ff0000"
+                    page.update()
+                    ver.append(False)
+                else: ver.append(True)
+            if not tlf.value:
+                cantidad.hint_text="OBLIGATORIO"
+                cantidad.border_color="#ff0000"
+                page.update()
+                ver.append(False)
+            else: ver.append(True)
+            verificacion=all(ver)
+            return verificacion
+        myveri=comp(dd_banco,doc,cant,tlf,maxi)
+        if myveri==True:
+            retirobd(user,dd_banco,doc,cant,tlf)
+            tit.value="RETIRO REGISTRADO"
+            tit.color="#60d147"
+            page.update()
+        else:print("Error")
+    page.scroll='always'
     page.bgcolor="#ffe3e8"
-    rec=ft.CupertinoButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
+    rec=ft.CupertinoButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_b)
     doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     cant=ft.TextField(label="Cantidad",hint_text="Cantidad",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     tlf=ft.TextField(label="Telefono",hint_text="Telefono",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)
+    maxi=ft.TextField(value=f"{inf_bs[3]}",label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor="#ffe3e8",color="BLACK",width=300,disabled=True)
     tit=ft.Text("DATOS DE RETIRO",color="BLACK",font_family="Berlin Sans FB",size=32)
     dd_banco = ft.Dropdown(
+        on_change=on_change_b,
         label="BANCO",
         bgcolor="#c4394d",
         width=300,
@@ -87,27 +139,21 @@ def retiro_bs (page: ft.Page):
                     ),
                     ft.Row(
                         [
+                            maxi
+                        ],alignment=ft.MainAxisAlignment.CENTER
+                    ),
+                    ft.Row(
+                        [
                             rec
                         ],alignment=ft.MainAxisAlignment.CENTER
                     ),
+                    ft.Row(
+                        [
+                            ft.Text("REQUIERE PAGO MOVIL",color="BLACK",font_family="Berlin Sans FB",size=16)
+                        ],alignment=ft.MainAxisAlignment.CENTER
+                    )
                 ]
             )
         )
     )
-    page.add(new)
-    mybar = ft.BottomAppBar(
-        bgcolor="#c4394d",
-        shape=ft.NotchShape.CIRCULAR,
-        content=ft.Row(
-            controls=[
-                ft.IconButton(icon=ft.icons.REFRESH, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.HOME, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED, icon_color=ft.colors.WHITE,bgcolor="#ff6178"),
-                ft.IconButton(icon=ft.icons.TRENDING_UP_OUTLINED,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.MENU_OPEN_SHARP,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.EXIT_TO_APP, icon_color=ft.colors.WHITE)
-            ],alignment=ft.MainAxisAlignment.CENTER
-        ),
-    )
-    page.add(mybar)
-ft.app(retiro_bs)
+    return new

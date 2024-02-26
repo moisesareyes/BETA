@@ -7,7 +7,7 @@ mydb=mysql.connector.connect(
     database="test"
 )
 bcv=36.29
-user="Eai-47325"
+user="ZRO-42111"
 def converse (page: ft.Page):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
@@ -95,17 +95,6 @@ def converse (page: ft.Page):
             page.update()
         else: pass
         print(ver)
-    img=ft.Image(
-        width=256,
-        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b2a0d1ca-699a-4c14-8a0f-f7c09f0804fb/dgx3mr5-c424fb06-c476-4e14-b90c-3f9dfecf3a78.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2IyYTBkMWNhLTY5OWEtNGMxNC04YTBmLWY3YzA5ZjA4MDRmYlwvZGd4M21yNS1jNDI0ZmIwNi1jNDc2LTRlMTQtYjkwYy0zZjlkZmVjZjNhNzgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.0R8sHJFh-v6fG5187eWWUt0QGkE4lPTdtBWwuhcuPD4",
-        fit=ft.ImageFit.CONTAIN
-    )
-    page.appbar = ft.AppBar(
-        leading_width=40,
-        title=img,
-        center_title=True,
-        bgcolor="#c4394d",
-    )
     dd_method = ft.Dropdown(
         on_change=on_change_converse,
         bgcolor="WHITE",
@@ -115,6 +104,7 @@ def converse (page: ft.Page):
             ft.dropdown.Option("Bs.D to USD")
         ],
     )
+    page.scroll='always'
     page.bgcolor="#ffe3e8"
     monto=ft.TextField(label="MONTO $",hint_text="MONTO$$$",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,on_change=on_change_converse)
     cambio=ft.CupertinoButton(content=ft.Text("CAMBIAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_converse)
@@ -164,20 +154,4 @@ def converse (page: ft.Page):
             )
         )
     )
-    page.add(new)
-    mybar = ft.BottomAppBar(
-        bgcolor="#c4394d",
-        shape=ft.NotchShape.CIRCULAR,
-        content=ft.Row(
-            controls=[
-                ft.IconButton(icon=ft.icons.REFRESH, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.HOME, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED, icon_color=ft.colors.WHITE,bgcolor="#ff6178"),
-                ft.IconButton(icon=ft.icons.TRENDING_UP_OUTLINED,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.MENU_OPEN_SHARP,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.EXIT_TO_APP, icon_color=ft.colors.WHITE)
-            ],alignment=ft.MainAxisAlignment.CENTER
-        ),
-    )
-    page.add(mybar)
-ft.app(converse)
+    return new

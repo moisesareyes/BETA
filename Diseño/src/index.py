@@ -6,21 +6,13 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-user="ZRO-42111"
-def index (page: ft.Page):
-    def on_click_button(e):
-        print("Shaki")
+def index (page,ft=ft):
     img=ft.Image(
         width=256,
         src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b2a0d1ca-699a-4c14-8a0f-f7c09f0804fb/dgx3mr5-c424fb06-c476-4e14-b90c-3f9dfecf3a78.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2IyYTBkMWNhLTY5OWEtNGMxNC04YTBmLWY3YzA5ZjA4MDRmYlwvZGd4M21yNS1jNDI0ZmIwNi1jNDc2LTRlMTQtYjkwYy0zZjlkZmVjZjNhNzgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.0R8sHJFh-v6fG5187eWWUt0QGkE4lPTdtBWwuhcuPD4",
         fit=ft.ImageFit.CONTAIN
     )
-    page.appbar = ft.AppBar(
-        leading_width=40,
-        leading=img,
-        center_title=True,
-        bgcolor="#c4394d",
-    )
+    user="ZRO-42111"
     sql=f"SELECT `id`, `poseedor`, `tipo`, `cantidad`, `billeteraID`, `act` FROM `billetera` WHERE`poseedor`='{user}'"
     crs=mydb.cursor()
     crs.execute(sql)
@@ -29,17 +21,17 @@ def index (page: ft.Page):
     crs.execute(sql)
     inf_usr=crs.fetchone()
     print(f"{inf_bill} {inf_usr}")
-    page.bgcolor="#ffe3e8"
     carrousel = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
-    if inf_bill:
-        for bill in inf_bill:
+    page.bgcolor="#ffe3e8"
+    page.scroll='always'
+    for bill in inf_bill:
             carrousel.controls.append(
                 ft.Container(
                     border_radius=ft.border_radius.all(10),
                     border=ft.border.all(3,"BLACK"),
                     bgcolor="#c4394d",
                     height=140,
-                    width=300,
+                    width=325,
                     content=(
                         ft.Column(
                             [
@@ -67,34 +59,14 @@ def index (page: ft.Page):
                     )
                 )
             )
-    carrousel.controls.append(
-        ft.Container(
-            border_radius=ft.border_radius.all(10),
-            border=ft.border.all(3,"BLACK"),
-            bgcolor="#c4394d",
-            height=140,
-            width=300,
-            content=(
-                ft.IconButton(icon=ft.icons.ADD_BOX_ROUNDED,icon_size=40,icon_color="WHITE")
-            )
-        )
+    new=ft.Container(
+          content=(
+                ft.Row(
+                      [
+                            carrousel
+                      ],alignment=ft.MainAxisAlignment.CENTER
+                )
+          )
     )
-    page.add(carrousel)
-    page.horizontal_alignment = page.vertical_alignment = "center"
-
-    mybar = ft.BottomAppBar(
-        bgcolor="#c4394d",
-        shape=ft.NotchShape.CIRCULAR,
-        content=ft.Row(
-            controls=[
-                ft.IconButton(icon=ft.icons.REFRESH, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.HOME, icon_color=ft.colors.WHITE,bgcolor="#ff6178"),
-                ft.IconButton(icon=ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED, icon_color=ft.colors.WHITE),
-                ft.IconButton(icon=ft.icons.TRENDING_UP_OUTLINED,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.MENU_OPEN_SHARP,icon_color="WHITE"),
-                ft.IconButton(icon=ft.icons.EXIT_TO_APP, icon_color=ft.colors.WHITE)
-            ],alignment=ft.MainAxisAlignment.CENTER
-        ),
-    )
-    page.add(mybar)
-ft.app(index)
+    page.horizontal_alignment =  "center"
+    return new

@@ -1,11 +1,16 @@
 import flet as ft
-from views import screen
+from router import router
+from user_controls.navbar import nav_bar
+from user_controls.appbar import app_bar
+
 def main(page:ft.Page):
-    def route_change(route):
-        page.views.clear()
-        page.views.append(
-            screen(page)[page.route]
-        )
-    page.on_route_change=route_change
-    page.go("/")
-ft.app(main)
+    page.appbar=app_bar(page,ft)
+    page.bottom_appbar=nav_bar(page,ft)
+    myRout=router(page,ft)
+    page.on_route_change = myRout.route_change
+    page.add(
+        myRout.body
+    )
+    page.go('/')
+    
+ft.app(target=main,assets_dir="assets")
