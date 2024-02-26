@@ -10,7 +10,7 @@ def nav_bar(page,ft=ft):
                 ft.IconButton(icon=ft.icons.HOME,on_click=lambda _: page.go('/')),
                 ft.IconButton(icon=ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED, icon_color=ft.colors.WHITE,on_click=lambda _: page.go('/transf')),
                 ft.IconButton(icon=ft.icons.TRENDING_UP_OUTLINED,icon_color="WHITE",on_click=lambda _: page.go('/retiro')),
-                ft.IconButton(icon=ft.icons.MENU_OPEN_SHARP,icon_color="WHITE")
+                ft.IconButton(icon=ft.icons.MENU_OPEN_SHARP,icon_color="WHITE",on_click=lambda _: page.go('/config'))
             ],alignment=ft.MainAxisAlignment.CENTER
         )
     )

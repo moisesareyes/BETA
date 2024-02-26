@@ -108,6 +108,10 @@ def transf (page: ft.Page):
                         titl.color="#60d147"
                         page.update()
                         mydb.commit()
+                        new_hit=(user,id[0],"transferencia",type.value,"confirmado",monto.value,inf_rcp[4],inf_usr[4])
+                        sql="INSERT INTO `historial`(`servidor`, `recep`, `tipo`, `moneda`, `status`, `cantidad`, `billetera1`, `billetera2`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+                        crs.execute(sql,new_hit)
+                        mydb.commit()
             else: print("ERROR")
         comp(dd_pref,dd_type,contacto,monto,maxi,error,titl)
     dd_pref = ft.Dropdown(

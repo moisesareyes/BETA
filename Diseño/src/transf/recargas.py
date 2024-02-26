@@ -71,6 +71,10 @@ def recg (page: ft.Page):
                     mydb.commit()
                     tit.value="RECARGA REGISTRADA"
                     tit.color="#60d147"
+                    new_hit=(usuario,'Servidor','Recarga',type.value,'Pendiente',cant.value)
+                    sql="INSERT INTO `historial`(`servidor`, `recep`, `tipo`, `moneda`, `status`, `cantidad`) VALUES (%s,%s,%s,%s,%s,%s)"
+                    crs.execute(sql,new_hit)
+                    mydb.commit()
                     page.update()
                 else:
                     new_var=(usuario,type.value,doc.value,method.value,cant.value,ref.value,"Pendiente",fecha.value)
@@ -79,6 +83,10 @@ def recg (page: ft.Page):
                     mydb.commit()
                     tit.value="RECARGA REGISTRADA"
                     tit.color="#60d147"
+                    new_hit=(usuario,'Servidor','Recarga',type.value,'Pendiente',cant.value)
+                    sql="INSERT INTO `historial`(`servidor`, `recep`, `tipo`, `moneda`, `status`, `cantidad`) VALUES (%s,%s,%s,%s,%s,%s)"
+                    crs.execute(sql,new_hit)
+                    mydb.commit()
                     page.update()
             type.value=""
             doc.value=""

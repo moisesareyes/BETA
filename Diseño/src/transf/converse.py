@@ -69,6 +69,10 @@ def converse (page: ft.Page):
                 newinf=crs.fetchone()
                 maxi.value=newinf[3]
                 page.update()
+                new_hit=(user,user,"converse",method.value,"confirmado",temp,inf_bs[4],inf[4])
+                sql="INSERT INTO `historial`(`servidor`, `recep`, `tipo`, `moneda`, `status`, `cantidad`, `billetera1`, `billetera2`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+                crs.execute(sql,new_hit)
+                mydb.commit()
             if method.value=="Bs.D to USD":
                 temp=int(cambio.value)*bcv
                 new_old=float(inf_bs[3])-temp
@@ -83,6 +87,10 @@ def converse (page: ft.Page):
                 newinf=crs.fetchone()
                 maxi.value=newinf[3]
                 page.update()
+                new_hit=(user,user,"converse",method.value,"confirmado",temp,inf[4],inf_bs[4])
+                sql="INSERT INTO `historial`(`servidor`, `recep`, `tipo`, `moneda`, `status`, `cantidad`, `billetera1`, `billetera2`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+                crs.execute(sql,new_hit)
+                mydb.commit()
         ver=comp(dd_method,monto,maxi)
         verificacion=all(ver)
         if verificacion==True:
