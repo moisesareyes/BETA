@@ -8,6 +8,7 @@ from src.transf.recargas import recg
 from src.transf.trasnf import transf
 from src.retiro.retiro_Bs import retiro_bs
 from src.config import config
+from src.history import history
 class router:
     def __init__(self,page,ft) :
         self.page=page
@@ -20,7 +21,8 @@ class router:
             '/transf/recarga':recg(page),
             '/transf/transferencia':transf(page),
             '/retiro/bsd':retiro_bs(page),
-            '/config':config(page)
+            '/config':config(page),
+            '/history':history(page)
         }
         self.body=ft.Container(content=self.routes['/'])
     def route_change(self,route):

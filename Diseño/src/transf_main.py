@@ -16,9 +16,9 @@ def transf_main (page,ft=ft):
     )
     page.bgcolor="#ffe3e8"
     page.scroll='always'
-    rec=ft.CupertinoButton(content=ft.Text("RECARGAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _: page.go("/transf/recarga"))
-    conv=ft.CupertinoButton(content=ft.Text("CONVERTIR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _: page.go("/trasf/converse"))
-    transf=ft.CupertinoButton(content=ft.Text("TRASNFERIR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _:page.go("/transf/transferencia"))
+    rec=ft.ElevatedButton(content=ft.Text("RECARGAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _: page.go("/transf/recarga"))
+    conv=ft.ElevatedButton(content=ft.Text("CONVERTIR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _: page.go("/trasf/converse"))
+    transf=ft.ElevatedButton(content=ft.Text("TRASNFERIR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _:page.go("/transf/transferencia"))
     new=ft.Container(
         content=(
             ft.Column(

@@ -16,8 +16,8 @@ def main_ret (page,ft=ft):
     )
     page.bgcolor="#ffe3e8"
     page.scroll='always'
-    rec=ft.CupertinoButton(content=ft.Text("RETIRAR BS.D",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _:page.go("/retiro/bsd"))
-    conv=ft.CupertinoButton(content=ft.Text("RETIRAR USD",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
+    rec=ft.ElevatedButton(content=ft.Text("RETIRAR BS.D",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=lambda _:page.go("/retiro/bsd"))
+    conv=ft.ElevatedButton(content=ft.Text("RETIRAR USD",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
     new=ft.Container(
         content=(
             ft.Column(

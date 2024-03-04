@@ -139,7 +139,7 @@ def transf (page: ft.Page):
     page.scroll='always'
     contacto=ft.TextField(label="CONTACTO",hint_text="CONTACTO",bgcolor="#ffe3e8",width=300,disabled=True)
     monto=ft.TextField(label="MONTO",hint_text="MONTO",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)
-    cambio=ft.CupertinoButton(content=ft.Text("ACEPTAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_tranf)
+    cambio=ft.ElevatedButton(content=ft.Text("ACEPTAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_tranf)
     maxi=ft.TextField(label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor="#ffe3e8",width=300,disabled=True)
     error=ft.Text("MINIMO 5 USD AL CAMBIO",color="BLACK",size=12,font_family="Berlin Sans FB")
     titl=ft.Text("TRANSFERENCIA",color="BLACK",size=32,font_family="Berlin Sans FB")
