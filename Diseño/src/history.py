@@ -7,9 +7,9 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-user="ZRO-42111"
+#user="ZRO-42111"
 crs=mydb.cursor()
-def history(page:ft.Page):
+def history(page:ft.Page,user):
     sql=f"SELECT * FROM `historial` WHERE `servidor`='{user}' OR `recep`='{user}'"
     crs.execute(sql)
     inf_history=crs.fetchall()

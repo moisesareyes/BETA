@@ -6,8 +6,8 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-user="ZRO-42111"
-def retiro_bs (page: ft.Page):
+#user="ZRO-42111"
+def retiro_bs (page: ft.Page,user):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
     crs.execute(sql)
@@ -70,7 +70,6 @@ def retiro_bs (page: ft.Page):
             page.update()
         else:print("Error")
     page.scroll='always'
-    page.bgcolor="#ffe3e8"
     rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_b)
     doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     cant=ft.TextField(label="Cantidad",hint_text="Cantidad",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)

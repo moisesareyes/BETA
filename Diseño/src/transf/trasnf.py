@@ -6,8 +6,8 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-user="ZRO-42111"
-def transf (page: ft.Page):
+#user="ZRO-42111"
+def transf (page: ft.Page,user):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
     crs.execute(sql)
@@ -135,7 +135,6 @@ def transf (page: ft.Page):
             ft.dropdown.Option("Bs.D"),
         ],
     )
-    page.bgcolor="#ffe3e8"
     page.scroll='always'
     contacto=ft.TextField(label="CONTACTO",hint_text="CONTACTO",bgcolor="#ffe3e8",width=300,disabled=True)
     monto=ft.TextField(label="MONTO",hint_text="MONTO",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)

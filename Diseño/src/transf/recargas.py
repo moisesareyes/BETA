@@ -7,8 +7,8 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-user="ZRO-42111"
-def recg (page: ft.Page):
+#user="ZRO-42111"
+def recg (page: ft.Page,user):
     crs=mydb.cursor()
     def on_click_reg(e):
         def comp(fecha,type,datebtn,method,doc,ref,usuario,tlf,cant,tit):
@@ -141,7 +141,6 @@ def recg (page: ft.Page):
         on_click=lambda _: date_picker.pick_date(),
     )
     page.scroll='always'
-    page.bgcolor="#ffe3e8"
     rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_reg)
     doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,border_color="BLACK")
     ref=ft.TextField(label="Referencia",hint_text="Referencia",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)

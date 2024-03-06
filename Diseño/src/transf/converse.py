@@ -7,8 +7,8 @@ mydb=mysql.connector.connect(
     database="test"
 )
 bcv=36.29
-user="ZRO-42111"
-def converse (page: ft.Page):
+#user="ZRO-42111"
+def converse (page: ft.Page,user):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
     crs.execute(sql)
@@ -113,7 +113,6 @@ def converse (page: ft.Page):
         ],
     )
     page.scroll='always'
-    page.bgcolor="#ffe3e8"
     monto=ft.TextField(label="MONTO $",hint_text="MONTO$$$",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,on_change=on_change_converse)
     cambio=ft.ElevatedButton(content=ft.Text("CAMBIAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_converse)
     maxi=ft.TextField(label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor="#ffe3e8",color="BLACK",width=300,disabled=True)

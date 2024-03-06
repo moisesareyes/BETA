@@ -8,7 +8,6 @@ mydb = mysql.connector.connect(
   database="test"
 )
 def reg_user(page: ft.Page):
-    page.bgcolor="#c4394d"
     ft.border_radius.all(0)
     def on_click_reg(e):
         def comp(para,metro):
@@ -164,26 +163,20 @@ def reg_user(page: ft.Page):
     inp_passrd=ft.TextField(hint_text="Repita la contraseña",label="Repetir contraseña",border_color="#A51C30",bgcolor="#fff2f4",width=150,password=True)
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.CrossAxisAlignment.CENTER
-    submit=ft.CupertinoButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#ff0025",on_click=on_click_reg)
-    page.add(
-        ft.Row(
-            [
-                cortado,
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-        )
-    )
-    page.add(
-        ft.Row(
-            [
-                titulo,
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-        )
-    )
-    page.add(
+    submit=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#ff0025",width=300,on_click=on_click_reg)
+    new=(
         ft.Column(
             [
+                ft.Row(
+                    [
+                        cortado,
+                    ],alignment=ft.MainAxisAlignment.CENTER,
+                ),
+                ft.Row(
+                    [
+                        titulo,
+                    ],alignment=ft.MainAxisAlignment.CENTER,
+                ),
                 ft.Row(
                     [
                         inp_usr,
@@ -206,22 +199,13 @@ def reg_user(page: ft.Page):
                         inp_pass, 
                         inp_passrd
                     ],alignment=ft.MainAxisAlignment.CENTER,
+                ),
+                ft.Row(
+                    [
+                        submit
+                    ],alignment=ft.MainAxisAlignment.CENTER,
                 )
-                
-                
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-        )
-
-    )
-    page.add(
-        ft.Row(
-            [
-                submit,
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
+            ]
         )
     )
-        
-
-ft.app(reg_user)
+    return new

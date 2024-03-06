@@ -1,12 +1,16 @@
 import flet as ft
 
-def app_bar(page,ft=ft):
+def app_bar(page:ft.Page):
     img=ft.Image(
         height=100,
         src=f"/images/banner.png",
         fit=ft.ImageFit.CONTAIN
     )
+
     ApB = ft.AppBar(
+        actions=[
+            ft.IconButton(ft.icons.REFRESH,icon_color=ft.colors.WHITE)
+        ],
         toolbar_height=65,
         leading_width=40,
         title=img,
