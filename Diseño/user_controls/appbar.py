@@ -9,7 +9,7 @@ def app_bar(page:ft.Page):
 
     ApB = ft.AppBar(
         actions=[
-            ft.IconButton(ft.icons.REFRESH,icon_color=ft.colors.WHITE)
+            ft.IconButton(ft.icons.REFRESH,icon_color=ft.colors.WHITE,on_click=lambda _:page.update())
         ],
         toolbar_height=65,
         leading_width=40,

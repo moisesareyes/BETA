@@ -16,4 +16,4 @@ def main(page:ft.Page):
     )
     page.go('/')
     page.update()
-ft.app(port=8550, target=main)
+ft.app(port=8550, target=main,view=ft.WEB_BROWSER)
