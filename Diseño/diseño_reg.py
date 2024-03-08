@@ -167,11 +167,7 @@ def reg_user(page: ft.Page):
     new=(
         ft.Column(
             [
-                ft.Row(
-                    [
-                        cortado,
-                    ],alignment=ft.MainAxisAlignment.CENTER,
-                ),
+                ft.Row([ft.Image(height=100,src=f"/images/banner.png",fit=ft.ImageFit.CONTAIN)],alignment=ft.MainAxisAlignment.CENTER),
                 ft.Row(
                     [
                         titulo,
@@ -203,6 +199,11 @@ def reg_user(page: ft.Page):
                 ft.Row(
                     [
                         submit
+                    ],alignment=ft.MainAxisAlignment.CENTER,
+                ),
+                ft.Row(
+                    [
+                        ft.IconButton(icon=ft.icons.KEYBOARD_RETURN,icon_color="WHITE",icon_size=32,on_click=lambda _: page.go('/index/index'))
                     ],alignment=ft.MainAxisAlignment.CENTER,
                 )
             ]

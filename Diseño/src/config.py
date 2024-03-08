@@ -1,12 +1,14 @@
 import flet as ft
 import mysql.connector
+from user_controls.navbar import nav_bar
+from user_controls.appbar import app_bar
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
     database="test"
 )
-#user="ZRO-42111"
+
 def config (page:ft.Page,user):
     page.scroll='always'
     userbtn=ft.ElevatedButton(content=ft.Text("USUARIO",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
@@ -52,4 +54,6 @@ def config (page:ft.Page,user):
             )
         )
     )
-    return new
+    if not user=="PEE-35141":
+        return new
+    else:pass

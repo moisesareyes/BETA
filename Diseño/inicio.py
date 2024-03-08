@@ -1,6 +1,8 @@
 import flet as ft
 import mysql.connector 
-
+from user_controls.navbar import nav_bar
+from user_controls.appbar import app_bar
+from main import fromhere
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
@@ -9,6 +11,9 @@ mydb=mysql.connector.connect(
 )
 def loginp(page:ft.Page):
     crs=mydb.cursor()
+    def exit_app(e):
+        page = e.page
+        page.window_destroy()
     def on_click_lgoin(e):
         def comp(user,passw,titt):
             ver=list()
@@ -32,14 +37,21 @@ def loginp(page:ft.Page):
             crs.execute(sql)
             newval=crs.fetchone()
             print(newval)
-            if newval[3]==inp_pass.value:
-                titt.color="#32a852"
-                page.update()
-                global user
-                user=newval[0]
+            if newval:
+                if newval[3]==inp_pass.value:
+                    titt.color="#32a852"
+                    fromhere(newval[0])
+                    exit_app
+                else:
+                    inp_pass.label="CONTRASEÑA INCORRECTA"
+                    inp_pass.hint_text="CONTRASEÑA INCORRECTA"
+                    inp_pass.border_color="#ff0000"
+                    titt.color="#ff0025"
+                    page.update()
             else:
-                inp_usr.label="CONTRASEÑA INCORRECTA"
-                inp_usr.hint_text="CONTRASEÑA INCORRECTA"
+                titt.color="#ff0025"
+                inp_usr.label="USUARIO INCORRECTO"
+                inp_usr.hint_text="USUARIO INCORRECTA"
                 inp_usr.border_color="#ff0000"
                 page.update()
         else:
@@ -78,11 +90,15 @@ def loginp(page:ft.Page):
                         [
                             ft.Text(value="¿CONTRASEÑA OLVIDA?",color="WHITE",size=12,font_family="Berlin Sans FB")
                         ],alignment=ft.MainAxisAlignment.CENTER
+                    ),
+                    ft.Row(
+                        [
+                            ft.IconButton(icon=ft.icons.KEYBOARD_RETURN,icon_color="WHITE",icon_size=32,on_click=lambda _: page.go('/index/index'))
+                        ],alignment=ft.MainAxisAlignment.CENTER,
                     )
                 ]
                 )
             )
         )
     )
-    page.add(new)
-ft.app(loginp)
+    return new

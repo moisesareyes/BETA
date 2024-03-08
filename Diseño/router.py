@@ -9,9 +9,6 @@ from src.transf.trasnf import transf
 from src.retiro.retiro_Bs import retiro_bs
 from src.config import config
 from src.history import history
-from main_index import indexforusr
-from diseño_reg import reg_user
-from inicio import loginp
 class router:
     def __init__(self,page,ft,user) :
         self.page=page
@@ -25,11 +22,7 @@ class router:
             '/transf/transferencia':transf(page,user),
             '/retiro/bsd':retiro_bs(page,user),
             '/config':config(page,user),
-            '/history':history(page,user),
-            '/index/index':indexforusr(page),
-            '/index/reg':reg_user(page),
-            '/index/login':loginp(page),
-
+            '/history':history(page,user)
         }
         self.body=ft.Container(content=self.routes['/'])
     def route_change(self,route):

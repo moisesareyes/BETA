@@ -6,7 +6,6 @@ def app_bar(page:ft.Page):
         src=f"/images/banner.png",
         fit=ft.ImageFit.CONTAIN
     )
-
     ApB = ft.AppBar(
         actions=[
             ft.IconButton(ft.icons.REFRESH,icon_color=ft.colors.WHITE,on_click=lambda _:page.update())

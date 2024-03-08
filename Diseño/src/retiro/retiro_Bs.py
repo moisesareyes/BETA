@@ -1,12 +1,14 @@
 import flet as ft
 import mysql.connector
+from user_controls.navbar import nav_bar
+from user_controls.appbar import app_bar
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
     database="test"
 )
-#user="ZRO-42111"
+
 def retiro_bs (page: ft.Page,user):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
@@ -155,4 +157,6 @@ def retiro_bs (page: ft.Page,user):
             )
         )
     )
-    return new
+    if not user=="PEE-35141":
+        return new
+    else:pass
