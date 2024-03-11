@@ -9,8 +9,18 @@ from src.transf.trasnf import transf
 from src.retiro.retiro_Bs import retiro_bs
 from src.config import config
 from src.history import history
+from main_index import indexforusr
+from diseño_reg import reg_user
+from inicio import loginp
+import json
 class router:
-    def __init__(self,page,ft,user) :
+    def __init__(self,page,ft) :
+        global nopage
+        nopage=page
+        with open ('Diseño/usr.json','r') as file:
+            inf=file.read()
+        infj=json.loads(inf)
+        user=infj['user']
         self.page=page
         self.ft=ft
         self.routes={
@@ -22,10 +32,29 @@ class router:
             '/transf/transferencia':transf(page,user),
             '/retiro/bsd':retiro_bs(page,user),
             '/config':config(page,user),
-            '/history':history(page,user)
-        }
+            '/history':history(page,user),
+            '/index':indexforusr(page),
+            '/index/reg':reg_user(page),
+            '/index/login':loginp(page)}
         self.body=ft.Container(content=self.routes['/'])
     def route_change(self,route):
+        with open ('Diseño/usr.json','r') as file:
+            inf=file.read()
+        infj=json.loads(inf)
+        user=infj['user']
         self.body.content=self.routes[route.route]
         self.body.update()
         self.page.update()
+        self.routes={
+            '/':index(nopage,user),
+            '/transf':transf_main(nopage,user),
+            '/retiro':main_ret(nopage,user),
+            '/trasf/converse':converse(nopage,user),
+            '/transf/recarga':recg(nopage,user),
+            '/transf/transferencia':transf(nopage,user),
+            '/retiro/bsd':retiro_bs(nopage,user),
+            '/config':config(nopage,user),
+            '/history':history(nopage,user),
+            '/index':indexforusr(nopage),
+            '/index/reg':reg_user(nopage),
+            '/index/login':loginp(nopage)}

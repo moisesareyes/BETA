@@ -203,7 +203,7 @@ def reg_user(page: ft.Page):
                 ),
                 ft.Row(
                     [
-                        ft.IconButton(icon=ft.icons.KEYBOARD_RETURN,icon_color="WHITE",icon_size=32,on_click=lambda _: page.go('/index/index'))
+                        ft.IconButton(icon=ft.icons.KEYBOARD_RETURN,icon_color="WHITE",icon_size=32,on_click=lambda _: page.go('/index'))
                     ],alignment=ft.MainAxisAlignment.CENTER,
                 )
             ]

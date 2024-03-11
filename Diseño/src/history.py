@@ -33,7 +33,7 @@ def history(page:ft.Page,user):
                                     subtitle=ft.Text(f"F: {hist[9]} Cantidad: {hist[6]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
                                 ),
                                 ft.Row(
-                                    [ft.TextButton(content=ft.Text("Eliminar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
+                                    [ft.TextButton(content=ft.Text("Ocultar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
                                 ),
                             ]
                         ),
@@ -55,7 +55,7 @@ def history(page:ft.Page,user):
                                     subtitle=ft.Text(f"F:{hist[9]} Cantidad: {hist[6]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
                                 ),
                                 ft.Row(
-                                    [ft.TextButton(content=ft.Text("Eliminar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
+                                    [ft.TextButton(content=ft.Text("Ocultar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
                                 ),
                             ]
                         ),
@@ -80,7 +80,7 @@ def history(page:ft.Page,user):
                                     subtitle=ft.Text(f"F:{hist[9]} - Cantidad: {hist[6]} - De: {infusr[0][0]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
                                 ),
                                 ft.Row(
-                                    [ft.TextButton(content=ft.Text("Eliminar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
+                                    [ft.TextButton(content=ft.Text("Ocultar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
                                 ),
                             ]
                         ),
@@ -105,7 +105,7 @@ def history(page:ft.Page,user):
                                     subtitle=ft.Text(f"F:{hist[9]} - Cantidad: {hist[6]} - Para: {infusr[0][0]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
                                 ),
                                 ft.Row(
-                                    [ft.TextButton(content=ft.Text("Eliminar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
+                                    [ft.TextButton(content=ft.Text("Ocultar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
                                 ),
                             ]
                         ),

@@ -2,7 +2,7 @@ import flet as ft
 import mysql.connector 
 from user_controls.navbar import nav_bar
 from user_controls.appbar import app_bar
-from main import fromhere
+import json
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
@@ -15,7 +15,7 @@ def loginp(page:ft.Page):
         page = e.page
         page.window_destroy()
     def on_click_lgoin(e):
-        def comp(user,passw,titt):
+        def comp(user,passw):
             ver=list()
             if not user.value:
                 user.bgcolor="#ff0000"
@@ -31,7 +31,7 @@ def loginp(page:ft.Page):
             else:ver.append(True)
             verificacion=all(ver)
             return verificacion
-        varr=comp(inp_usr,inp_pass,titt)
+        varr=comp(inp_usr,inp_pass)
         if varr==True:
             sql=f"SELECT `UserID`,`User_name`, `Email`, `Pass`, `Tlf` FROM `usuario` WHERE `User_name`='{inp_usr.value}' OR `Email`='{inp_usr.value}' OR `Tlf`='{inp_usr.value}'"
             crs.execute(sql)
@@ -40,8 +40,14 @@ def loginp(page:ft.Page):
             if newval:
                 if newval[3]==inp_pass.value:
                     titt.color="#32a852"
-                    fromhere(newval[0])
-                    exit_app
+                    futurejson={'user':f'{newval[0]}','theme':'normie'}
+                    with open ('Diseño/usr.json','w') as file:
+                        json.dump(futurejson,file)
+                    page.update()
+                    page.appbar=app_bar(page)
+                    page.bottom_appbar=nav_bar(page,ft)
+                    page.go('/index')
+                    page.go('/')
                 else:
                     inp_pass.label="CONTRASEÑA INCORRECTA"
                     inp_pass.hint_text="CONTRASEÑA INCORRECTA"
@@ -93,7 +99,7 @@ def loginp(page:ft.Page):
                     ),
                     ft.Row(
                         [
-                            ft.IconButton(icon=ft.icons.KEYBOARD_RETURN,icon_color="WHITE",icon_size=32,on_click=lambda _: page.go('/index/index'))
+                            ft.IconButton(icon=ft.icons.KEYBOARD_RETURN,icon_color="WHITE",icon_size=32,on_click=lambda _: page.go('/index'))
                         ],alignment=ft.MainAxisAlignment.CENTER,
                     )
                 ]
