@@ -9,7 +9,7 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-def recg (page: ft.Page,user):
+def recg (page: ft.Page,user,theme):
     crs=mydb.cursor()
     def on_click_reg(e):
         def comp(fecha,type,datebtn,method,doc,ref,usuario,tlf,cant,tit):
@@ -135,14 +135,14 @@ def recg (page: ft.Page,user):
     page.overlay.append(date_picker)
 
     date_button = ft.IconButton(
-        bgcolor="#c4394d",
+        bgcolor=f"{theme['maincolor']}",
         icon_color="WHITE",
         icon_size=32,
         icon=ft.icons.CALENDAR_MONTH,
         on_click=lambda _: date_picker.pick_date(),
     )
     page.scroll='always'
-    rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_reg)
+    rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=on_click_reg)
     doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,border_color="BLACK")
     ref=ft.TextField(label="Referencia",hint_text="Referencia",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     cant=ft.TextField(label="Cantidad",hint_text="Cantidad",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
@@ -151,7 +151,7 @@ def recg (page: ft.Page,user):
     dd_type = ft.Dropdown(
         on_change=on_change_dis,
         label="TIPO DE RECARGA",
-        bgcolor="#c4394d",
+        bgcolor=f"{theme['maincolor']}",
         width=300,
         options=[
             ft.dropdown.Option("USD"),

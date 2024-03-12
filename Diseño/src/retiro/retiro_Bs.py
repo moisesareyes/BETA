@@ -9,7 +9,7 @@ mydb=mysql.connector.connect(
     database="test"
 )
 
-def retiro_bs (page: ft.Page,user):
+def retiro_bs (page: ft.Page,user,theme):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
     crs.execute(sql)
@@ -72,11 +72,11 @@ def retiro_bs (page: ft.Page,user):
             page.update()
         else:print("Error")
     page.scroll='always'
-    rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_b)
+    rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=on_click_b)
     doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     cant=ft.TextField(label="Cantidad",hint_text="Cantidad",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     tlf=ft.TextField(label="Telefono",hint_text="Telefono",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)
-    maxi=ft.TextField(value=f"{inf_bs[3]}",label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor="#ffe3e8",color="BLACK",width=300,disabled=True)
+    maxi=ft.TextField(value=f"{inf_bs[3]}",label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor=theme['fondo'],color="BLACK",width=300,disabled=True)
     tit=ft.Text("DATOS DE RETIRO",color="BLACK",font_family="Berlin Sans FB",size=32)
     dd_banco = ft.Dropdown(
         on_change=on_change_b,

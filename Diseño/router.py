@@ -14,9 +14,11 @@ from diseño_reg import reg_user
 from inicio import loginp
 import json
 class router:
-    def __init__(self,page,ft) :
+    def __init__(self,page,ft,theme) :
         global nopage
         nopage=page
+        global notheme
+        notheme=theme
         with open ('Diseño/usr.json','r') as file:
             inf=file.read()
         infj=json.loads(inf)
@@ -24,18 +26,18 @@ class router:
         self.page=page
         self.ft=ft
         self.routes={
-            '/':index(page,user),
-            '/transf':transf_main(page,user),
-            '/retiro':main_ret(page,user),
-            '/trasf/converse':converse(page,user),
-            '/transf/recarga':recg(page,user),
-            '/transf/transferencia':transf(page,user),
-            '/retiro/bsd':retiro_bs(page,user),
-            '/config':config(page,user),
-            '/history':history(page,user),
-            '/index':indexforusr(page),
-            '/index/reg':reg_user(page),
-            '/index/login':loginp(page)}
+            '/':index(page,user,notheme),
+            '/transf':transf_main(page,user,notheme),
+            '/retiro':main_ret(page,user,notheme),
+            '/trasf/converse':converse(page,user,notheme),
+            '/transf/recarga':recg(page,user,notheme),
+            '/transf/transferencia':transf(page,user,notheme),
+            '/retiro/bsd':retiro_bs(page,user,notheme),
+            '/config':config(page,user,notheme),
+            '/history':history(page,user,notheme),
+            '/index':indexforusr(page,notheme),
+            '/index/reg':reg_user(page,notheme),
+            '/index/login':loginp(page,notheme)}
         self.body=ft.Container(content=self.routes['/'])
     def route_change(self,route):
         with open ('Diseño/usr.json','r') as file:
@@ -46,15 +48,15 @@ class router:
         self.body.update()
         self.page.update()
         self.routes={
-            '/':index(nopage,user),
-            '/transf':transf_main(nopage,user),
-            '/retiro':main_ret(nopage,user),
-            '/trasf/converse':converse(nopage,user),
-            '/transf/recarga':recg(nopage,user),
-            '/transf/transferencia':transf(nopage,user),
-            '/retiro/bsd':retiro_bs(nopage,user),
-            '/config':config(nopage,user),
-            '/history':history(nopage,user),
-            '/index':indexforusr(nopage),
-            '/index/reg':reg_user(nopage),
-            '/index/login':loginp(nopage)}
+            '/':index(nopage,user,notheme),
+            '/transf':transf_main(nopage,user,notheme),
+            '/retiro':main_ret(nopage,user,notheme),
+            '/trasf/converse':converse(nopage,user,notheme),
+            '/transf/recarga':recg(nopage,user,notheme),
+            '/transf/transferencia':transf(nopage,user,notheme),
+            '/retiro/bsd':retiro_bs(nopage,user,notheme),
+            '/config':config(nopage,user,notheme),
+            '/history':history(nopage,user,notheme),
+            '/index':indexforusr(nopage,notheme),
+            '/index/reg':reg_user(nopage,notheme),
+            '/index/login':loginp(nopage,notheme)}

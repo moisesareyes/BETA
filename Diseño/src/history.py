@@ -8,7 +8,7 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-def history(page:ft.Page,user):
+def history(page:ft.Page,user,theme):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `historial` WHERE `servidor`='{user}' OR `recep`='{user}'"
     crs.execute(sql)
@@ -39,7 +39,7 @@ def history(page:ft.Page,user):
                         ),
                     width=325,
                     padding=10,
-                    bgcolor="#c4394d"
+                    bgcolor=f"{theme['maincolor']}"
                     )
                 )
             )
@@ -61,7 +61,7 @@ def history(page:ft.Page,user):
                         ),
                     width=325,
                     padding=10,
-                    bgcolor="#c4394d"
+                    bgcolor=f"{theme['maincolor']}"
                     )
                 )
             )
@@ -86,7 +86,7 @@ def history(page:ft.Page,user):
                         ),
                     width=325,
                     padding=10,
-                    bgcolor="#c4394d"
+                    bgcolor=f"{theme['maincolor']}"
                     )
                 )
             )
@@ -111,7 +111,7 @@ def history(page:ft.Page,user):
                         ),
                     width=325,
                     padding=10,
-                    bgcolor="#c4394d"
+                    bgcolor=f"{theme['maincolor']}"
                     )
                 )
             )

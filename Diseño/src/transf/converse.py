@@ -9,7 +9,7 @@ mydb=mysql.connector.connect(
     database="test"
 )
 bcv=36.29
-def converse (page: ft.Page,user):
+def converse (page: ft.Page,user,theme):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='USD'"
     crs.execute(sql)
@@ -115,8 +115,8 @@ def converse (page: ft.Page,user):
     )
     page.scroll='always'
     monto=ft.TextField(label="MONTO $",hint_text="MONTO$$$",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,on_change=on_change_converse)
-    cambio=ft.ElevatedButton(content=ft.Text("CAMBIAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=on_click_converse)
-    maxi=ft.TextField(label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor="#ffe3e8",color="BLACK",width=300,disabled=True)
+    cambio=ft.ElevatedButton(content=ft.Text("CAMBIAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=on_click_converse)
+    maxi=ft.TextField(label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor=theme['fondo'],color="BLACK",width=300,disabled=True)
     titl=ft.Text("CONVERSION",color="BLACK",size=32,font_family="Berlin Sans FB")
     newcambio=ft.Text("Cambio: ",color="BLACK",size=16,font_family="Berlin Sans FB")
     new=ft.Container(

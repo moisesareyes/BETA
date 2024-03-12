@@ -1,0 +1,24 @@
+normie={
+    'maincolor':'#c4394d',
+    'fondo':'#f5abb8'
+}
+morado={
+    'maincolor':'#7139c4',
+    'fondo':'#bba0de'
+}
+azulado={
+    'maincolor':'#0438b3',
+    'fondo':'#9cb2e6'
+}
+verde={
+    'maincolor':'#06cf3c',
+    'fondo':'#affab4'
+}
+cyan={
+    'maincolor':'#00ffff',
+    'fondo':'#ccffff'
+}
+veceleste={
+    'maincolor':'#13f28e',
+    'fondo':'#b5f5d2'
+}

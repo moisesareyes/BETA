@@ -8,7 +8,7 @@ mydb=mysql.connector.connect(
     password="",
     database="test"
 )
-def index (page:ft.Page,user):
+def index (page:ft.Page,user,theme):
     sql=f"SELECT `id`, `poseedor`, `tipo`, `cantidad`, `billeteraID`, `act` FROM `billetera` WHERE`poseedor`='{user}'"
     crs=mydb.cursor()
     crs.execute(sql)
@@ -24,7 +24,7 @@ def index (page:ft.Page,user):
                 ft.Container(
                     border_radius=ft.border_radius.all(10),
                     border=ft.border.all(3,"BLACK"),
-                    bgcolor="#c4394d",
+                    bgcolor=f"{theme['maincolor']}",
                     height=140,
                     width=325,
                     content=(

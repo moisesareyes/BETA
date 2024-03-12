@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
   password="",
   database="test"
 )
-def reg_user(page: ft.Page):
+def reg_user(page: ft.Page,theme):
     ft.border_radius.all(0)
     def on_click_reg(e):
         def comp(para,metro):
@@ -152,18 +152,17 @@ def reg_user(page: ft.Page):
                     print("Error")
                     titulo.text="ERRRORR"
         verificacion(inp_usr,inp_nombre,inp_apellido,inp_email,inp_tlf,inp_pass,inp_passrd,titulo)
-    cortado=ft.Container(height=80,bgcolor="WHITE")
     titulo=ft.Text(value="REGISTRO DE USUARIO",color="WHITE",font_family="Berlin Sans FB",size=32)
-    inp_usr = ft.TextField(hint_text="Usuario",label="Usuario",border_color="#A51C30",bgcolor="#fff2f4",width=300,input_filter=ft.InputFilter(allow=False, regex_string="[ ]" , replacement_string=""))
-    inp_nombre=ft.TextField(hint_text="Nombre",label="Nombre",border_color="#A51C30",bgcolor="#fff2f4",width=150)
-    inp_apellido=ft.TextField(hint_text="Apellido",label="Apellido",border_color="#A51C30",bgcolor="#fff2f4",width=150)
-    inp_email=ft.TextField(hint_text="Email",label="Email",border_color="#A51C30",bgcolor="#fff2f4",width=150)
-    inp_tlf=ft.TextField(hint_text="Telefono",label="Telefono",border_color="#A51C30",bgcolor="#fff2f4",width=150,input_filter=ft.NumbersOnlyInputFilter())
-    inp_pass=ft.TextField(hint_text="Contraseña",label="Contraseña",border_color="#A51C30",bgcolor="#fff2f4",width=150,password=True)
-    inp_passrd=ft.TextField(hint_text="Repita la contraseña",label="Repetir contraseña",border_color="#A51C30",bgcolor="#fff2f4",width=150,password=True)
+    inp_usr = ft.TextField(hint_text="Usuario",label="Usuario",bgcolor=f"{theme['fondo']}",width=300,input_filter=ft.InputFilter(allow=False, regex_string="[ ]" , replacement_string=""))
+    inp_nombre=ft.TextField(hint_text="Nombre",label="Nombre",bgcolor=f"{theme['fondo']}",width=150)
+    inp_apellido=ft.TextField(hint_text="Apellido",label="Apellido",bgcolor=f"{theme['fondo']}",width=150)
+    inp_email=ft.TextField(hint_text="Email",label="Email",bgcolor=f"{theme['fondo']}",width=150)
+    inp_tlf=ft.TextField(hint_text="Telefono",label="Telefono",bgcolor=f"{theme['fondo']}",width=150,input_filter=ft.NumbersOnlyInputFilter())
+    inp_pass=ft.TextField(hint_text="Contraseña",label="Contraseña",bgcolor=f"{theme['fondo']}",width=150,password=True)
+    inp_passrd=ft.TextField(hint_text="Repita la contraseña",label="Repetir contraseña",bgcolor=f"{theme['fondo']}",width=150,password=True)
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.CrossAxisAlignment.CENTER
-    submit=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#ff0025",width=300,on_click=on_click_reg)
+    submit=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=on_click_reg)
     new=(
         ft.Column(
             [

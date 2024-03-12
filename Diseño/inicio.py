@@ -3,17 +3,20 @@ import mysql.connector
 from user_controls.navbar import nav_bar
 from user_controls.appbar import app_bar
 import json
+from user_controls.themes import *
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
     database="test"
 )
-def loginp(page:ft.Page):
+def loginp(page:ft.Page,theme):
+    def redirr (page,theme):
+        page.appbar=app_bar(page,theme)
+        page.bottom_appbar=nav_bar(page,theme)
+        page.go('/index')
+        page.go('/')
     crs=mydb.cursor()
-    def exit_app(e):
-        page = e.page
-        page.window_destroy()
     def on_click_lgoin(e):
         def comp(user,passw):
             ver=list()
@@ -39,15 +42,19 @@ def loginp(page:ft.Page):
             print(newval)
             if newval:
                 if newval[3]==inp_pass.value:
+                    with open ('Diseño/usr.json','r') as file:
+                        inf=file.read()
+                    infj=json.loads(inf)
+                    theme=infj['theme']
                     titt.color="#32a852"
-                    futurejson={'user':f'{newval[0]}','theme':'normie'}
+                    futurejson={'user':f'{newval[0]}','theme':f'{theme}'}
                     with open ('Diseño/usr.json','w') as file:
                         json.dump(futurejson,file)
                     page.update()
-                    page.appbar=app_bar(page)
-                    page.bottom_appbar=nav_bar(page,ft)
-                    page.go('/index')
-                    page.go('/')
+                    if theme=='normie':redirr(page,normie)
+                    elif theme=='morado':redirr(page,morado)
+                    elif theme=='azulado':redirr(page,azulado)
+                    elif theme=='verde':redirr(page,verde)
                 else:
                     inp_pass.label="CONTRASEÑA INCORRECTA"
                     inp_pass.hint_text="CONTRASEÑA INCORRECTA"
@@ -63,10 +70,10 @@ def loginp(page:ft.Page):
         else:
             titt.value="ERROR"
             page.update()
-    inp_pass=ft.TextField(hint_text="Contraseña",label="Contraseña",border_color="#A51C30",bgcolor="#fff2f4",password=True,icon=ft.icons.PEOPLE_ALT)
-    inp_usr=ft.TextField(hint_text="Nombre de usuario",label="Nombre de usuario",border_color="#A51C30",bgcolor="#fff2f4",icon=ft.icons.KEY)
+    inp_pass=ft.TextField(hint_text="Contraseña",label="Contraseña",bgcolor=f"{theme['fondo']}",password=True,icon=ft.icons.PEOPLE_ALT)
+    inp_usr=ft.TextField(hint_text="Nombre de usuario",label="Nombre de usuario",bgcolor=f"{theme['fondo']}",icon=ft.icons.KEY)
     titt=ft.Text(value="INICIO DE SESION",color="WHITE",size=32,font_family="Berlin Sans FB")
-    btn=ft.ElevatedButton(content=ft.Text("INICIAR SESION",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#ff0025",width=300,on_click=on_click_lgoin)
+    btn=ft.ElevatedButton(content=ft.Text("INICIAR SESION",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=on_click_lgoin)
     new=( 
         ft.Container(
             content=(

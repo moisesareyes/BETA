@@ -1,6 +1,6 @@
 import flet as ft
 
-def app_bar(page:ft.Page):
+def app_bar(page:ft.Page,theme):
     img=ft.Image(
         height=100,
         src=f"/images/banner.png",
@@ -14,6 +14,6 @@ def app_bar(page:ft.Page):
         leading_width=40,
         title=img,
         center_title=True,
-        bgcolor="#c4394d",
+        bgcolor=f"{theme['maincolor']}"
     )
     return ApB

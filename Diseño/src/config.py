@@ -10,9 +10,15 @@ mydb=mysql.connector.connect(
     database="test"
 )
 
-def config (page:ft.Page,user):
+def config (page:ft.Page,user,theme):
+    color1=theme['maincolor']
+    bgtheme=theme['fondo']
     def onclickclose(e):
-        futurejson={'user':f'PEE-35141','theme':'normie'}
+        with open ('Diseño/usr.json','r') as file:
+            inf=file.read()
+        infj=json.loads(inf)
+        theme=infj['theme']
+        futurejson={'user':f'PEE-35141','theme':f'{theme}'}
         with open ('Diseño/usr.json','w') as file:
             json.dump(futurejson,file)
         page.update()
@@ -20,16 +26,16 @@ def config (page:ft.Page,user):
             toolbar_height=65,
             leading_width=40,
             center_title=True,
-            bgcolor="#f5abb8")
-        page.bottom_appbar= ft.BottomAppBar(bgcolor="#f5abb8")
+            bgcolor=bgtheme)
+        page.bottom_appbar= ft.BottomAppBar(bgcolor=bgtheme)
         page.go("/index/login")
         page.go('/index')
     page.scroll='always'
-    userbtn=ft.ElevatedButton(content=ft.Text("USUARIO",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
-    logout=ft.ElevatedButton(content=ft.Text("CERRAR SESIÓN",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300,on_click=onclickclose)
-    theme=ft.ElevatedButton(content=ft.Text("TEMA",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
-    privacidad=ft.ElevatedButton(content=ft.Text("PRIVACIDAD",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
-    segbtn=ft.ElevatedButton(content=ft.Text("SEGURIDAD",color="WHITE",font_family="Berlin Sans FB"),bgcolor="#c4394d",width=300)
+    userbtn=ft.ElevatedButton(content=ft.Text("USUARIO",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
+    logout=ft.ElevatedButton(content=ft.Text("CERRAR SESIÓN",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300,on_click=onclickclose)
+    theme=ft.ElevatedButton(content=ft.Text("TEMA",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
+    privacidad=ft.ElevatedButton(content=ft.Text("PRIVACIDAD",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
+    segbtn=ft.ElevatedButton(content=ft.Text("SEGURIDAD",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
     new=ft.Container(
         content=(
             ft.Column(
@@ -42,11 +48,6 @@ def config (page:ft.Page,user):
                     ft.Row(
                         [
                             userbtn
-                        ],alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                    ft.Row(
-                        [
-                            privacidad
                         ],alignment=ft.MainAxisAlignment.CENTER
                     ),
                     ft.Row(
