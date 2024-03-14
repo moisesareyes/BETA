@@ -1,7 +1,6 @@
 import flet as ft
+from src.fixes.fixhistory import fixhistory
 import mysql.connector 
-from user_controls.navbar import nav_bar
-from user_controls.appbar import app_bar
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
@@ -10,17 +9,14 @@ mydb=mysql.connector.connect(
 )
 def history(page:ft.Page,user,theme):
     crs=mydb.cursor()
-    sql=f"SELECT * FROM `historial` WHERE `servidor`='{user}' OR `recep`='{user}'"
-    crs.execute(sql)
-    inf_history=crs.fetchall()
+    inf_history=fixhistory(user)
     page.scroll='always'
     recargas = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
+    retiros = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
     converse = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
     transf = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
     transftousr = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
-    print(inf_history)
     for hist in inf_history:
-        print(hist)
         if hist[3]=="converse":
             converse.controls.append(
                 ft.Card(
@@ -52,7 +48,29 @@ def history(page:ft.Page,user,theme):
                                 ft.ListTile(
                                     leading=ft.Icon(ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED,color="WHITE"),
                                     title=ft.Text(f"RECARGA",color="WHITE",size=18,font_family="Berlin Sans FB"),
-                                    subtitle=ft.Text(f"F:{hist[9]} Cantidad: {hist[6]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
+                                    subtitle=ft.Text(f"F:{hist[9]} Cantidad: {hist[6]} Estado: {hist[5]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
+                                ),
+                                ft.Row(
+                                    [ft.TextButton(content=ft.Text("Ocultar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
+                                ),
+                            ]
+                        ),
+                    width=325,
+                    padding=10,
+                    bgcolor=f"{theme['maincolor']}"
+                    )
+                )
+            )
+        elif hist[3]=="Retiro":
+            retiros.controls.append(
+                ft.Card(
+                    content=ft.Container(
+                        content=ft.Column(
+                            [
+                                ft.ListTile(
+                                    leading=ft.Icon(ft.icons.KEYBOARD_DOUBLE_ARROW_UP_OUTLINED,color="WHITE"),
+                                    title=ft.Text(f"Retiro",color="WHITE",size=18,font_family="Berlin Sans FB"),
+                                    subtitle=ft.Text(f"F:{hist[9]} Cantidad: {hist[6]} Estado: {hist[5]}",color="WHITE",size=12,font_family="Berlin Sans FB"),
                                 ),
                                 ft.Row(
                                     [ft.TextButton(content=ft.Text("Ocultar",color="WHITE"))],alignment=ft.MainAxisAlignment.END,
@@ -118,6 +136,16 @@ def history(page:ft.Page,user,theme):
     new=(
         ft.Column(
             [
+                ft.Row(
+                    [
+                        ft.Text("Retiros",color="BLACK",size=21,font_family="Berlin Sans FB")
+                    ]
+                ),
+                ft.Row(
+                    [
+                        retiros
+                    ]
+                ),
                 ft.Row(
                     [
                         ft.Text("Recargas",color="BLACK",size=21,font_family="Berlin Sans FB")

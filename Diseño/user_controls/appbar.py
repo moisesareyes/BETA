@@ -6,9 +6,12 @@ def app_bar(page:ft.Page,theme):
         src=f"/images/banner.png",
         fit=ft.ImageFit.CONTAIN
     )
+    def onclickre(e):
+        page.go('/config')
+        page.go('/')
     ApB = ft.AppBar(
         actions=[
-            ft.IconButton(ft.icons.REFRESH,icon_color=ft.colors.WHITE,on_click=lambda _:page.update())
+            ft.IconButton(ft.icons.REFRESH,icon_color=ft.colors.WHITE,on_click=onclickre)
         ],
         toolbar_height=65,
         leading_width=40,

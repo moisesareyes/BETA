@@ -9,7 +9,7 @@ mydb=mysql.connector.connect(
     database="test"
 )
 
-def retiro_bs (page: ft.Page,user,theme):
+def retirousd (page: ft.Page,user,theme):
     crs=mydb.cursor()
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
     crs.execute(sql)
@@ -21,12 +21,16 @@ def retiro_bs (page: ft.Page,user,theme):
                 page.update()
             else:
                 tlf.disabled=False
+                if banco.value=="Zinli":
+                    tlf.input_filter=ft.InputFilter(allow=True, regex_string="[0-9]", replacement_string="")
+                    tlf.value=""
+                elif banco.value=="Paypal":tlf.input_filter=ft.InputFilter(allow=False, regex_string="['ñ']" , replacement_string="")
                 page.update()
-        compr(dd_banco,tlf)
+        compr(dd_type,tlf)
     def on_click_b(e):
-        def retirobd(usuario,banco,doc,cantidad,tlf):
-            grd=(usuario,banco.value,doc.value,cantidad.value,tlf.value,'pendiente')
-            sql="INSERT INTO `retiros`( `usuario`, `banco`, `documento`, `cantidad`, `tlf`, `status`) VALUES (%s,%s,%s,%s,%s,%s)"
+        def retirobd(usuario,banco,cantidad,tlf):
+            grd=(usuario,banco.value,cantidad.value,tlf.value,'pendiente')
+            sql="INSERT INTO `retiros`( `usuario`, `banco`, `cantidad`, `tlf`, `status`) VALUES (%s,%s,%s,%s,%s)"
             crs.execute(sql,grd)
             mydb.commit()
             new_hit=(usuario,banco.value,'Retiro','usd','Pendiente',cantidad.value)
@@ -34,17 +38,11 @@ def retiro_bs (page: ft.Page,user,theme):
             crs.execute(sql,new_hit)
             mydb.commit()
             page.update()
-        def comp(banco,doc,cantidad,tlf,maximo):
+        def comp(banco,cantidad,tlf,maximo):
             ver=list()
             if not banco.value:
                 banco.hint_text="OBLIGATORIO"
                 banco.border_color="#ff0000"
-                page.update()
-                ver.append(False)
-            else: ver.append(True)
-            if not doc.value:
-                doc.hint_text="OBLIGATORIO"
-                doc.border_color="#ff0000"
                 page.update()
                 ver.append(False)
             else: ver.append(True)
@@ -69,49 +67,27 @@ def retiro_bs (page: ft.Page,user,theme):
             else: ver.append(True)
             verificacion=all(ver)
             return verificacion
-        myveri=comp(dd_banco,doc,cant,tlf,maxi)
+        myveri=comp(dd_type,cant,tlf,maxi)
         if myveri==True:
-            retirobd(user,dd_banco,doc,cant,tlf)
+            retirobd(user,dd_type,cant,tlf)
             tit.value="RETIRO REGISTRADO"
             tit.color="#60d147"
             page.update()
         else:print("Error")
     page.scroll='always'
     rec=ft.ElevatedButton(content=ft.Text("REGISTRAR",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=on_click_b)
-    doc=ft.TextField(label="Cedula",hint_text="Cedula",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
     cant=ft.TextField(label="Cantidad",hint_text="Cantidad",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300)
-    tlf=ft.TextField(label="Telefono",hint_text="Telefono",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)
+    tlf=ft.TextField(label="Contacto",hint_text="Contacto",input_filter=ft.NumbersOnlyInputFilter(),color="BLACK",width=300,disabled=True)
     maxi=ft.TextField(value=f"{inf_bs[3]}",label="MONTO MAXIMO",hint_text="MONTO MAXIMO",bgcolor=theme['fondo'],color="BLACK",width=300,disabled=True)
     tit=ft.Text("DATOS DE RETIRO",color="BLACK",font_family="Berlin Sans FB",size=32)
-    dd_banco = ft.Dropdown(
+    dd_type = ft.Dropdown(
         on_change=on_change_b,
-        label="BANCO",
+        label="Preferencia",
         bgcolor="#c4394d",
         width=300,
         options=[
-            
-            ft.dropdown.Option("0102 Banco de Venezuela, S.A.C.A."),
-            ft.dropdown.Option("0104 Venezolano de Crédito"),
-            ft.dropdown.Option("0105 Mercantil"),
-            ft.dropdown.Option("0108 Provincial"),
-            ft.dropdown.Option("0114 Bancaribe"),
-            ft.dropdown.Option("0115 Exterior"),
-            ft.dropdown.Option("0116 Occidental de Descuento"),
-            ft.dropdown.Option("0128 Banco Caroní"),
-            ft.dropdown.Option("0134 Banesco"),
-            ft.dropdown.Option("0138 Banco Plaza"),
-            ft.dropdown.Option("0151 BFC Banco Fondo Común"),
-            ft.dropdown.Option("0156 100% Banco"),
-            ft.dropdown.Option("0157 Del Sur."),
-            ft.dropdown.Option("0166 Banco Agrícola de Venezuela "),
-            ft.dropdown.Option("0168 Bancrecer"),
-            ft.dropdown.Option("0169 Mi Banco"),
-            ft.dropdown.Option("0171 Banco Activo"),
-            ft.dropdown.Option("0172 Bancamiga"),
-            ft.dropdown.Option("0174 Banplus"),
-            ft.dropdown.Option("0175 Bicentenario del Pueblo"),
-            ft.dropdown.Option("0177 Banfanb"),
-            ft.dropdown.Option("0191 BNC Nacional de Crédito")
+            ft.dropdown.Option("Zinli"),
+            ft.dropdown.Option("Paypal")
         ],
     )
     new=ft.Container(
@@ -125,12 +101,7 @@ def retiro_bs (page: ft.Page,user,theme):
                     ),
                     ft.Row(
                         [
-                            dd_banco
-                        ],alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                    ft.Row(
-                        [
-                            doc
+                            dd_type
                         ],alignment=ft.MainAxisAlignment.CENTER
                     ),
                     ft.Row(
@@ -151,11 +122,6 @@ def retiro_bs (page: ft.Page,user,theme):
                     ft.Row(
                         [
                             rec
-                        ],alignment=ft.MainAxisAlignment.CENTER
-                    ),
-                    ft.Row(
-                        [
-                            ft.Text("REQUIERE PAGO MOVIL",color="BLACK",font_family="Berlin Sans FB",size=16)
                         ],alignment=ft.MainAxisAlignment.CENTER
                     )
                 ]

@@ -1,22 +1,9 @@
 import flet as ft
-import mysql.connector
-from user_controls.navbar import nav_bar
-from user_controls.appbar import app_bar
-mydb=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="test"
-)
+from src.fixes.findex import indexforuser
+from src.fixes.fixindex2 import indexforbilletera
 def index (page:ft.Page,user,theme):
-    sql=f"SELECT `id`, `poseedor`, `tipo`, `cantidad`, `billeteraID`, `act` FROM `billetera` WHERE`poseedor`='{user}'"
-    crs=mydb.cursor()
-    crs.execute(sql)
-    inf_bill=crs.fetchall()
-    sql=f"SELECT `ID`, `UserID`, `Nombre`, `Apellido`, `User_name`, `Email`, `Pass`, `Tlf`, `Reg` FROM `usuario` WHERE `UserID`='{user}'"
-    crs.execute(sql)
-    inf_usr=crs.fetchone()
-    print(f"{inf_bill} {inf_usr}")
+    inf_bill=indexforbilletera(user)
+    inf_usr=indexforuser(user)
     carrousel = ft.Row(expand=1, wrap=False, scroll="always",alignment=ft.MainAxisAlignment.CENTER)
     page.scroll='always'
     for bill in inf_bill:

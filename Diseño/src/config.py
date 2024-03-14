@@ -33,7 +33,7 @@ def config (page:ft.Page,user,theme):
     page.scroll='always'
     userbtn=ft.ElevatedButton(content=ft.Text("USUARIO",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
     logout=ft.ElevatedButton(content=ft.Text("CERRAR SESIÓN",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300,on_click=onclickclose)
-    theme=ft.ElevatedButton(content=ft.Text("TEMA",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
+    theme=ft.ElevatedButton(content=ft.Text("TEMA",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300,on_click=lambda _: page.go('/config/theme'))
     privacidad=ft.ElevatedButton(content=ft.Text("PRIVACIDAD",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
     segbtn=ft.ElevatedButton(content=ft.Text("SEGURIDAD",color="WHITE",font_family="Berlin Sans FB"),bgcolor=color1,width=300)
     new=ft.Container(

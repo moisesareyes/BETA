@@ -55,6 +55,12 @@ def loginp(page:ft.Page,theme):
                     elif theme=='morado':redirr(page,morado)
                     elif theme=='azulado':redirr(page,azulado)
                     elif theme=='verde':redirr(page,verde)
+                    elif theme=='cyan':redirr(page,cyan)
+                    elif theme=='veceleste':redirr(page,veceleste)
+                    elif theme=='anaranjado':redirr(page,anaranjado)
+                    elif theme=='naranja':redirr(page,naranja)
+                    elif theme=='dorado':redirr(page,dorado)
+                    elif theme=='dark':redirr(page,dark)
                 else:
                     inp_pass.label="CONTRASEÑA INCORRECTA"
                     inp_pass.hint_text="CONTRASEÑA INCORRECTA"

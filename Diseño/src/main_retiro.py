@@ -12,7 +12,7 @@ def main_ret (page:ft.Page,user,theme):
     mydb.commit()
     page.scroll='always'
     rec=ft.ElevatedButton(content=ft.Text("RETIRAR BS.D",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=lambda _:page.go("/retiro/bsd"))
-    conv=ft.ElevatedButton(content=ft.Text("RETIRAR USD",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300)
+    conv=ft.ElevatedButton(content=ft.Text("RETIRAR USD",color="WHITE",font_family="Berlin Sans FB"),bgcolor=f"{theme['maincolor']}",width=300,on_click=lambda _:page.go("/retiro/usd"))
     new=ft.Container(
         content=(
             ft.Column(

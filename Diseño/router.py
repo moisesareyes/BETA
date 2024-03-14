@@ -7,11 +7,12 @@ from src.transf.converse import converse
 from src.transf.recargas import recg
 from src.transf.trasnf import transf
 from src.retiro.retiro_Bs import retiro_bs
-from src.config import config
 from src.history import history
 from main_index import indexforusr
 from diseño_reg import reg_user
 from inicio import loginp
+from src.retiro.retirousd import retirousd
+from src.config01.themes import newthemes
 import json
 class router:
     def __init__(self,page,ft,theme) :
@@ -33,7 +34,9 @@ class router:
             '/transf/recarga':recg(page,user,notheme),
             '/transf/transferencia':transf(page,user,notheme),
             '/retiro/bsd':retiro_bs(page,user,notheme),
+            '/retiro/usd':retirousd(page,user,notheme),
             '/config':config(page,user,notheme),
+            '/config/theme':newthemes(nopage,user),
             '/history':history(page,user,notheme),
             '/index':indexforusr(page,notheme),
             '/index/reg':reg_user(page,notheme),
@@ -54,8 +57,10 @@ class router:
             '/trasf/converse':converse(nopage,user,notheme),
             '/transf/recarga':recg(nopage,user,notheme),
             '/transf/transferencia':transf(nopage,user,notheme),
+            '/retiro/usd':retirousd(nopage,user,notheme),
             '/retiro/bsd':retiro_bs(nopage,user,notheme),
             '/config':config(nopage,user,notheme),
+            '/config/theme':newthemes(nopage,user),
             '/history':history(nopage,user,notheme),
             '/index':indexforusr(nopage,notheme),
             '/index/reg':reg_user(nopage,notheme),

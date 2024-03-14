@@ -22,3 +22,19 @@ veceleste={
     'maincolor':'#13f28e',
     'fondo':'#b5f5d2'
 }
+anaranjado={
+    'maincolor':'#f7bd1b',
+    'fondo':'#ffdd80'
+}
+naranja={
+    'maincolor':'#fa8314',
+    'fondo':'#ffc085'
+}
+dorado={
+    'maincolor':'#D4AF37',
+    'fondo':'#fadf89'
+}
+dark={
+    'maincolor':'#141414',
+    'fondo':'#6b6b6b'
+}

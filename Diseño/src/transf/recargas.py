@@ -15,13 +15,11 @@ def recg (page: ft.Page,user,theme):
         def comp(fecha,type,datebtn,method,doc,ref,usuario,tlf,cant,tit):
             ver=list()
             if not fecha.value:
-                print(datebtn)
                 datebtn.bgcolor="#ff0000"
                 page.update()
                 ver.append(False)
             else:ver.append(True)
             if not type.value:
-                print(type)
                 type.hint_text="OBLIGATORIO"
                 type.border_color="#ff0000"
                 page.update()
@@ -62,7 +60,6 @@ def recg (page: ft.Page,user,theme):
                     ver.append(True)
             else:ver.append(False)
             verificacion=all(ver)
-            print(verificacion)
             if verificacion==True:
                 if tlf.disabled==False:
                     
@@ -124,16 +121,14 @@ def recg (page: ft.Page,user,theme):
             if not method.value=='PAGO MOVIL':
                 tlf.disabled=True
                 page.update()
-            print(method)
         dis(dd_type,dd_method,tlf)
     date_picker = ft.DatePicker(
         on_change=change_date,
         on_dismiss=date_picker_dismissed,
-        first_date=datetime.datetime.today()
+        first_date=datetime.datetime(2024, 1, 1),
+        last_date=datetime.datetime.today()
     )
-
     page.overlay.append(date_picker)
-
     date_button = ft.IconButton(
         bgcolor=f"{theme['maincolor']}",
         icon_color="WHITE",

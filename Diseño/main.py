@@ -27,5 +27,9 @@ def main(page:ft.Page):
     elif theme=='verde':running(user,verde)
     elif theme=='cyan':running(user,cyan)
     elif theme=='veceleste':running(user,veceleste)
+    elif theme=='anaranjado':running(user,anaranjado)
+    elif theme=='naranja':running(user,naranja)
+    elif theme=='dorado':running(user,dorado)
+    elif theme=='dark':running(user,dark)
 
 ft.app(main)

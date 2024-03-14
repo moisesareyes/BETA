@@ -17,7 +17,6 @@ def converse (page: ft.Page,user,theme):
     sql=f"SELECT * FROM `billetera` WHERE `poseedor`='{user}' AND `tipo`='Bs.D'"
     crs.execute(sql)
     inf_bs=crs.fetchone()
-    print(inf)
     def on_change_converse(e):
         def op(method,new_cono,old_cono,show):
             if method.value=="USD to Bs.D":
@@ -103,7 +102,6 @@ def converse (page: ft.Page,user,theme):
             titl.color="#60d147"
             page.update()
         else: pass
-        print(ver)
     dd_method = ft.Dropdown(
         on_change=on_change_converse,
         bgcolor="WHITE",

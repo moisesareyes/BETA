@@ -75,7 +75,6 @@ def transf (page: ft.Page,user,theme):
                 sql=f"SELECT `UserID` FROM `usuario` WHERE `User_name`='{contacto.value}' OR `Email`='{contacto.value}' OR `Tlf`='{contacto.value}'"
                 crs.execute(sql)
                 id=crs.fetchone()
-                print(id)
                 if not id:
                     contacto.label=f"{pref.value} NO EXISTE"
                     contacto.hint_text=f"{pref.value} NO EXISTE"
